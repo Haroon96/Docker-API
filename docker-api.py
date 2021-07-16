@@ -37,6 +37,12 @@ def get_mount_volumes():
     # mapping format for binding outputDir to /output
     return { outputDir: { "bind": "/output"} }
 
+def max_containers_reached(client, max_containers):
+    try:
+        return len(client.containers.list()) >= max_containers
+    except:
+        return True
+
 def spawn_containers(args):
     # get docker client
     client = docker.from_env()
@@ -53,7 +59,7 @@ def spawn_containers(args):
         userId = str(user['id'])
 
         # check for running container list
-        while len(client.containers.list()) >= args.max_containers:
+        while max_containers_reached(client, args.max_containers):
             # sleep for a minute if maxContainers are active
             print("Max containers reached. Sleeping...")
             sleep(args.sleep_duration)
