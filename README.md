@@ -1,10 +1,10 @@
 # Docker Example
-This is an example project that demonstrates building a Docker image for Selenium crawling and spawning multiple parallel containers with an option for limiting the maximum number of concurrently running containers.
+This is an example project that demonstrates building a Docker image for Selenium crawling and spawning multiple parallel containers with an option for limiting the maximum number of concurrently running containers. I use this as boilerplate for running other code on Docker.
 
 ## Contents
 - `Dockerfile`: Contains instructions for docker to build the image
 - `docker-api.py`: Contains a high-level API for common docker commands
-- `src`: Contains source code that is to be run inside the container
+- `src`: Contains the actual source code that is to be run inside the container
 
 ## Usage
 ```
