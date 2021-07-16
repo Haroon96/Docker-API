@@ -6,6 +6,8 @@ import requests
 
 # change this to your own ID
 IMAGE_NAME = 'haroon/docker-example'
+# change this to output dir to mount to container
+OUTPUT_DIR = os.path.join(os.getcwd(), 'output')
 
 def parse_args():
     parser = ArgumentParser()
@@ -27,15 +29,13 @@ def build_image():
     client.images.build(path='.', tag=IMAGE_NAME, rm=True)
 
 def get_mount_volumes():
-    # binds "/output" on the container -> "outputDir" actual folder on disk
+    # binds "/output" on the container -> "OUTPUT_DIR" actual folder on disk
 
-    # path to outputDir and make sure it exists
-    outputDir = os.path.join(os.getcwd(), 'output')
-    if not os.path.exists(outputDir):
-        os.makedirs(outputDir)
+    if not os.path.exists(OUTPUT_DIR):
+        os.makedirs(OUTPUT_DIR)
 
-    # mapping format for binding outputDir to /output
-    return { outputDir: { "bind": "/output"} }
+    # mapping format for binding OUTPUT_DIR to /output
+    return { OUTPUT_DIR: { "bind": "/output"} }
 
 def max_containers_reached(client, max_containers):
     try:
@@ -68,7 +68,7 @@ def spawn_containers(args):
         if not args.simulate:
             print("Spawning container...")
             
-            # set outputDir as "/output"
+            # set OUTPUT_DIR as "/output"
             command = ['python', 'main.py', userId, '/output']
 
             # run the container with these params
