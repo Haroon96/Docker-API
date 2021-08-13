@@ -1,5 +1,5 @@
 # Docker Example
-This is an example project that demonstrates building a Docker image for Selenium crawling and spawning multiple parallel containers with an option for limiting the maximum number of concurrently running containers. I use this as boilerplate for managing several Docker containers.
+This is an example project that demonstrates building a Docker image for Selenium crawling and spawning multiple parallel containers with an option for limiting the maximum number of concurrently running containers. I use this to manage multiple Docker containers.
 
 ## Contents
 - `Dockerfile`: Contains instructions for docker to build the image
