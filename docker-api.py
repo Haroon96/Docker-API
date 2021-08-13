@@ -14,7 +14,7 @@ def parse_args():
     parser.add_argument('--build', action="store_true", help='Build docker image')
     parser.add_argument('--run', action="store_true", help='Run all docker containers')
     parser.add_argument('--simulate', action="store_true", help='Simulate container run')
-    parser.add_argument('--max-containers', default=10, type=int, help="Maximum number of concurrent containers")
+    parser.add_argument('--max-containers', default=None, type=int, help="Maximum number of concurrent containers")
     parser.add_argument('--sleep-duration', default=60, type=int, help="Time to sleep (in seconds) when max containers are reached and before spawning additional containers")
     args = parser.parse_args()
     return args, parser
@@ -39,7 +39,8 @@ def get_mount_volumes():
 
 def max_containers_reached(client, max_containers):
     try:
-        return len(client.containers.list()) >= max_containers
+        return max_containers is not None and 
+            len(client.containers.list()) >= max_containers
     except:
         return True
 
