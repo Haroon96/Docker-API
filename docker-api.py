@@ -8,6 +8,8 @@ import requests
 IMAGE_NAME = 'haroon/docker-example'
 # change this to output dir to mount to container
 OUTPUT_DIR = os.path.join(os.getcwd(), 'output')
+# set to current user
+USERNAME = '%s:%s' % (os.getuid(), os.getgid())
 
 def parse_args():
     parser = ArgumentParser()
@@ -78,7 +80,7 @@ def spawn_containers(args):
             #   -> shm_size specifies the memory of the container. 512M is sufficient for Chrome.
             #   -> detach specifies that the container should be spawned in the background
             #   -> remove specifies that the container should be deleted after it has completed
-            client.containers.run(IMAGE_NAME, command, volumes=get_mount_volumes(), shm_size='512M', detach=True, remove=True)
+            client.containers.run(IMAGE_NAME, command, volumes=get_mount_volumes(), user=USERNAME, shm_size='512M', detach=True, remove=True)
         
         # increment count of containers
         count += 1
